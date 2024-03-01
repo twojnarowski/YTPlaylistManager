@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTPlaylistManager", "YTPlaylistManager\YTPlaylistManager\YTPlaylistManager.csproj", "{62ABBBB3-3185-4EEC-BE17-588065FE7281}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTPlaylistManager", "YTPlaylistManager\YTPlaylistManager\YTPlaylistManager.csproj", "{7968EC62-A15A-47EE-86AA-DC4085E10BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTPlaylistManager.Client", "YTPlaylistManager\YTPlaylistManager.Client\YTPlaylistManager.Client.csproj", "{09599719-CFD3-4BE5-909E-6D0F59AA7294}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTPlaylistManager.Client", "YTPlaylistManager\YTPlaylistManager.Client\YTPlaylistManager.Client.csproj", "{7A9AD664-75FA-4A41-A86F-11687C28BE66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62ABBBB3-3185-4EEC-BE17-588065FE7281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62ABBBB3-3185-4EEC-BE17-588065FE7281}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62ABBBB3-3185-4EEC-BE17-588065FE7281}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62ABBBB3-3185-4EEC-BE17-588065FE7281}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09599719-CFD3-4BE5-909E-6D0F59AA7294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09599719-CFD3-4BE5-909E-6D0F59AA7294}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09599719-CFD3-4BE5-909E-6D0F59AA7294}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09599719-CFD3-4BE5-909E-6D0F59AA7294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7968EC62-A15A-47EE-86AA-DC4085E10BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7968EC62-A15A-47EE-86AA-DC4085E10BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7968EC62-A15A-47EE-86AA-DC4085E10BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7968EC62-A15A-47EE-86AA-DC4085E10BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9AD664-75FA-4A41-A86F-11687C28BE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9AD664-75FA-4A41-A86F-11687C28BE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9AD664-75FA-4A41-A86F-11687C28BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9AD664-75FA-4A41-A86F-11687C28BE66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
