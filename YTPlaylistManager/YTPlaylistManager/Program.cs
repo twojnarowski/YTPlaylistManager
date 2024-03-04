@@ -12,6 +12,7 @@ namespace YTPlaylistManager
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var configuration = builder.Configuration;
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
@@ -27,6 +28,11 @@ namespace YTPlaylistManager
                 {
                     options.DefaultScheme = IdentityConstants.ApplicationScheme;
                     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                 })
                 .AddIdentityCookies();
 
