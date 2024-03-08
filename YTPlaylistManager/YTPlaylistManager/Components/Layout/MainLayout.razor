@@ -12,7 +12,7 @@
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
         <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Home" Icon="home" Path="Home" />
+            <RadzenPanelMenuItem Text="Home" Icon="home" Path="" />
             <RadzenPanelMenuItem Text="Auth" Icon="account_box" Path="Auth" />
             <AuthorizeView>
                 <Authorized>
@@ -26,9 +26,7 @@
                     </form>
                 </Authorized>
                 <NotAuthorized>
-                    <RadzenPanelMenuItem Text="Register" Icon="home" Path="Account/Register" />
                     <RadzenPanelMenuItem Text="Login" Icon="home" Path="Account/Login" />
-
                 </NotAuthorized>
             </AuthorizeView>
         </RadzenPanelMenu>
