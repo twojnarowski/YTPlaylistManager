@@ -1,35 +1,41 @@
-﻿@inherits LayoutComponentBase
+﻿@using YTPlaylistManager.Components.Account.Shared
+@inherits LayoutComponentBase
 @implements IDisposable
 
 @inject NavigationManager NavigationManager
 
 <RadzenLayout>
     <RadzenHeader>
-        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
-            <RadzenLabel Text="Header" />
-        </RadzenStack>
+        <RadzenLabel Text="YTPlaylistManager" />
+        <AuthorizeView>
+            <NotAuthorized>
+                <ExternalLoginPicker />
+            </NotAuthorized>
+            <Authorized>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+                    <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+                </RadzenStack>
+                <RadzenPanelMenuItem Text="@context.User.Identity?.Name" Icon="home" Path="Account/Manage" />
+                <form action="Account/Logout" method="post">
+                    <AntiforgeryToken />
+                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                    <button type="submit" class="nav-link">
+                        <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                    </button>
+                </form>
+            </Authorized>
+        </AuthorizeView>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
-        <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Home" Icon="home" Path="" />
-            <RadzenPanelMenuItem Text="Auth" Icon="account_box" Path="Auth" />
-            <AuthorizeView>
-                <Authorized>
-                    <RadzenPanelMenuItem Text="@context.User.Identity?.Name" Icon="home" Path="Account/Manage" />
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <button type="submit" class="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </button>
-                    </form>
-                </Authorized>
-                <NotAuthorized>
-                    <RadzenPanelMenuItem Text="Login" Icon="home" Path="Account/Login" />
-                </NotAuthorized>
-            </AuthorizeView>
-        </RadzenPanelMenu>
+        <AuthorizeView>
+            <Authorized>
+                <RadzenPanelMenu>
+
+                    <RadzenPanelMenuItem Text="Auth" Icon="account_box" Path="Auth" />
+                </RadzenPanelMenu>
+
+            </Authorized>
+        </AuthorizeView>
     </RadzenSidebar>
     <RadzenBody>
         <div class="rz-p-4">
