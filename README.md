@@ -3,9 +3,9 @@ The idea of this application is to allow users to have more options of controlli
 
 ## The roadmap
 - ~~Add login via Google/YT Account~~
-- Fix default Identity pages to match my needs
-  - Leavy only google login, with nice button
-  - Don't allow other logins, data access, etc.   
+- ~~Fix default Identity pages to match my needs~~
+  - ~~Leavy only google login, with nice button~~
+  - ~~Don't allow other logins, data access, etc.~~
 - Show playlists of a user
   - Set up YT API access
   - Download a list of playlists and display just the names with links
