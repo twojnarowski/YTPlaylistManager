@@ -6,34 +6,26 @@
 
 <RadzenLayout>
     <RadzenHeader>
-        <RadzenLabel Text="YTPlaylistManager" />
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+            <RadzenLabel Text="YTPlaylistManager" />
+            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+        </RadzenStack>
         <AuthorizeView>
             <NotAuthorized>
-                <ExternalLoginPicker />
-            </NotAuthorized>
-            <Authorized>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-                    <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" AlignItems="AlignItems.Center" Gap="0">
+                    <ExternalLoginPicker />
                 </RadzenStack>
-                <RadzenPanelMenuItem Text="@context.User.Identity?.Name" Icon="home" Path="Account/Manage" />
-                <form action="Account/Logout" method="post">
-                    <AntiforgeryToken />
-                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                    <button type="submit" class="nav-link">
-                        <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                    </button>
-                </form>
-            </Authorized>
+            </NotAuthorized>
         </AuthorizeView>
     </RadzenHeader>
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded">
         <AuthorizeView>
             <Authorized>
                 <RadzenPanelMenu>
-
                     <RadzenPanelMenuItem Text="Auth" Icon="account_box" Path="Auth" />
+                    <RadzenPanelMenuItem Text="@context.User.Identity?.Name" Icon="home" Path="Account/Manage" />
+                    <Logout />
                 </RadzenPanelMenu>
-
             </Authorized>
         </AuthorizeView>
     </RadzenSidebar>
