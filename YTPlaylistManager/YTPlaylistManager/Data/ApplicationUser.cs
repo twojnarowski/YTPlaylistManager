@@ -6,5 +6,4 @@ namespace YTPlaylistManager.Data
     public class ApplicationUser : IdentityUser
     {
     }
-
 }
