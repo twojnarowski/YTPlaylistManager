@@ -1,0 +1,88 @@
+﻿@page "/myuploads"
+@using Google.Apis.Auth.OAuth2
+@using Google.Apis.Services
+@using Google.Apis.Util.Store
+@using Google.Apis.YouTube.v3
+@using Google.Apis.Upload;
+@using Google.Apis.YouTube.v3.Data;
+@inject IConfiguration configuration;
+
+
+<h3>My Uploads</h3>
+
+@foreach (var myUpload in myUploads)
+{
+    <p>@myUpload</p>
+}
+
+@code {
+
+    List<string> myUploads = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserCredential credential;
+
+        var applicationName = "YT Playlist Manager";
+
+        var clientId = configuration["Authentication:Google:ClientId"];
+        var clientSecret = configuration["Authentication:Google:ClientSecret"];
+
+        var secrets = new ClientSecrets
+            {
+                ClientId = clientId,
+                ClientSecret = clientSecret
+            };
+
+        credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+        secrets,
+            new[] { YouTubeService.Scope.YoutubeReadonly },
+            "Tymonello",
+            CancellationToken.None,
+            new FileDataStore(applicationName)
+        );
+
+
+        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = applicationName,
+            });
+
+        var channelsListRequest = youtubeService.Channels.List("contentDetails");
+        channelsListRequest.Mine = true;
+
+        // Retrieve the contentDetails part of the channel resource for the authenticated user's channel.
+        var channelsListResponse = await channelsListRequest.ExecuteAsync();
+
+        foreach (var channel in channelsListResponse.Items)
+        {
+            // From the API response, extract the playlist ID that identifies the list
+            // of videos uploaded to the authenticated user's channel.
+            var uploadsListId = channel.ContentDetails.RelatedPlaylists.Uploads;
+
+            Console.WriteLine("Videos in list {0}", uploadsListId);
+
+            var nextPageToken = "";
+            while (nextPageToken != null)
+            {
+                var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet");
+                playlistItemsListRequest.PlaylistId = uploadsListId;
+                playlistItemsListRequest.MaxResults = 50;
+                playlistItemsListRequest.PageToken = nextPageToken;
+
+                // Retrieve the list of videos uploaded to the authenticated user's channel.
+                var playlistItemsListResponse = await playlistItemsListRequest.ExecuteAsync();
+
+                foreach (var playlistItem in playlistItemsListResponse.Items)
+                {
+                    // Print information about each video.
+                    myUploads.Add($"{playlistItem.Snippet.Title} ({playlistItem.Snippet.ResourceId.VideoId})");
+                }
+
+                nextPageToken = playlistItemsListResponse.NextPageToken;
+            }
+        }
+
+    }
+}
