@@ -7,6 +7,7 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
 - ~~Fix default Identity pages to match my needs~~
   - ~~Leavy only google login, with nice button~~
   - ~~Don't allow other logins, data access, etc.~~
+- ~~Add YT Api integration~~
 - Show playlists of a user
   - Set up YT API access
   - Download a list of playlists and display just the names with links
