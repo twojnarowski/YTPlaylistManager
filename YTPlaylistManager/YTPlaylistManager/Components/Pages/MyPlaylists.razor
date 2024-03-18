@@ -1,0 +1,61 @@
+﻿@page "/myplaylists"
+@using Google.Apis.Auth.OAuth2
+@using Google.Apis.Services
+@using Google.Apis.Util.Store
+@using Google.Apis.YouTube.v3
+@using Google.Apis.Upload;
+@using Google.Apis.YouTube.v3.Data;
+@inject IConfiguration configuration;
+
+
+<h3>My PLaylists</h3>
+
+@foreach (var myPlaylist in myPlaylists)
+{
+    <p>@myPlaylist</p>
+}
+
+@code {
+    List<string> myPlaylists = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var applicationName = "YT Playlist Manager";
+
+        var clientId = configuration["Authentication:Google:ClientId"];
+        var clientSecret = configuration["Authentication:Google:ClientSecret"];
+
+        var secrets = new ClientSecrets
+            {
+                ClientId = clientId,
+                ClientSecret = clientSecret
+            };
+
+        UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            secrets,
+            new[] {
+                YouTubeService.Scope.YoutubeReadonly
+                                            },
+            "Tymonello",
+            CancellationToken.None,
+            new FileDataStore(applicationName)
+        );
+
+        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = applicationName,
+            });
+
+        var playlistsListRequest = youtubeService.Playlists.List("snippet,contentDetails");
+        playlistsListRequest.Mine = true;
+        playlistsListRequest.MaxResults = 100;
+
+        var playlistsListResponse = playlistsListRequest.Execute();
+
+        foreach (var playlist in playlistsListResponse.Items)
+        {
+            myPlaylists.Add("Playlist Title: " + playlist.Snippet.Title + " Playlist ID: " + playlist.Id);
+        }
+    }
+}
