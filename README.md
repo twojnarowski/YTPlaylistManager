@@ -9,9 +9,9 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
   - ~~Don't allow other logins, data access, etc.~~
 - ~~Add YT Api integration~~
 - ~~Show user's uploads~~
-- Show playlists of a user
-  - Set up YT API access
-  - Download a list of playlists and display just the names with links
+- ~~Show playlists of a user~~
+  - ~~Set up YT API access~~
+  - ~~Download a list of playlists~~ and display just the names with links
 - ~~Add nice component library with beautiful UI~~
   - ~~Change the UI to match YT color scheme~~
   - ~~Add nicer font~~
