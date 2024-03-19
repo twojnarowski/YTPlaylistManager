@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\YTPlaylistManager.Domain\YTPlaylistManager.Domain.csproj" />
     <ProjectReference Include="..\YTPlaylistManager.Client\YTPlaylistManager.Client.csproj" />
     <PackageReference Include="Google.Apis" Version="1.67.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.67.0" />

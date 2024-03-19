@@ -7,16 +7,41 @@
 @using Google.Apis.YouTube.v3.Data;
 @inject IConfiguration configuration;
 
-
 <h3>My PLaylists</h3>
+<RadzenDataList WrapItems="true" AllowPaging="false" Data="@myPlaylists" TItem="@YTPlaylistManager.Domain.Playlist">
+    <Template Context="playlist">
+        <RadzenCard Style="width:300px;">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
+                <RadzenImage Path="@playlist.ImageUrl" Style="width: 80px; height: 80px; border-radius: 50%" AlternateText="@(playlist.Title)" />
+                <RadzenStack Gap="0">
+                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-2 rz-my-0">Employee</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1"><b>@(playlist.Title)</b></RadzenText>
+                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">City</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body1"><b>@(playlist.Description)</b></RadzenText>
+                </RadzenStack>
+            </RadzenStack>
+            <hr style="border: none; background-color: rgba(0,0,0,.2); height: 1px; margin: 1rem 0;" />
+            <RadzenRow>
+                <RadzenColumn Size="8" Class="rz-text-truncate">
+                    <b>@(playlist.Link)</b>
+                </RadzenColumn>
+                <RadzenColumn Size="4" Class="rz-text-align-end">
+                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", playlist.ItemsCount)}") />
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenCard>
+    </Template>
+</RadzenDataList>
 
-@foreach (var myPlaylist in myPlaylists)
-{
-    <p>@myPlaylist</p>
-}
+<RadzenPager ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" HorizontalAlign="HorizontalAlign.Right" Count="count" PageSize="@pageSize" PageNumbersCount="5" />
+
+
 
 @code {
-    List<string> myPlaylists = new();
+    string pagingSummaryFormat = "Displaying page {0} of {1} (total {2} records)";
+    int pageSize = 6;
+    int count;
+    List<YTPlaylistManager.Domain.Playlist> myPlaylists = new List<YTPlaylistManager.Domain.Playlist>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,9 +58,7 @@
 
         UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
             secrets,
-            new[] {
-                YouTubeService.Scope.YoutubeReadonly
-                                            },
+            new[] { YouTubeService.Scope.YoutubeReadonly },
             "Tymonello",
             CancellationToken.None,
             new FileDataStore(applicationName)
@@ -55,7 +78,15 @@
 
         foreach (var playlist in playlistsListResponse.Items)
         {
-            myPlaylists.Add("Playlist Title: " + playlist.Snippet.Title + " Playlist ID: " + playlist.Id);
+            myPlaylists.Add(new()
+                {
+                    Id = playlist.Id,
+                    Description = playlist.Snippet.Description,
+                    ItemsCount = playlist.ContentDetails.ItemCount ?? 0,
+                    Link = "https://www.youtube.com/playlist?list=" + playlist.Id,
+                    Title = playlist.Snippet.Title,
+                    ImageUrl = playlist.Snippet.Thumbnails.Medium.Url,
+                });
         }
     }
 }
