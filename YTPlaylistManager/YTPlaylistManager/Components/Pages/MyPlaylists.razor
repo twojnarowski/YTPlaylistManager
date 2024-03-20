@@ -14,19 +14,20 @@
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
                 <RadzenImage Path="@playlist.ImageUrl" Style="width: 80px; height: 80px; border-radius: 50%" AlternateText="@(playlist.Title)" />
                 <RadzenStack Gap="0">
-                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-2 rz-my-0">Employee</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-2 rz-my-0">Title</RadzenText>
                     <RadzenText TextStyle="TextStyle.Body1"><b>@(playlist.Title)</b></RadzenText>
-                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">City</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">Description</RadzenText>
                     <RadzenText TextStyle="TextStyle.Body1"><b>@(playlist.Description)</b></RadzenText>
                 </RadzenStack>
             </RadzenStack>
             <hr style="border: none; background-color: rgba(0,0,0,.2); height: 1px; margin: 1rem 0;" />
             <RadzenRow>
-                <RadzenColumn Size="8" Class="rz-text-truncate">
-                    <b>@(playlist.Link)</b>
+                <RadzenColumn Size="8" Class="rz-text">
+                    <a href="@(playlist.Link)">Link</a>
+                    <a href="@($"myplaylist/{playlist.Id}")">Details</a>
                 </RadzenColumn>
                 <RadzenColumn Size="4" Class="rz-text-align-end">
-                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", playlist.ItemsCount)}") />
+                    <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{playlist.ItemsCount}") />
                 </RadzenColumn>
             </RadzenRow>
         </RadzenCard>
