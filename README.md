@@ -17,7 +17,7 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
 - ~~Add nice component library with beautiful UI~~
   - ~~Change the UI to match YT color scheme~~
   - ~~Add nicer font~~
-  - Add AI generated cool logo
+  - ~~Add AI generated cool logo~~
 - Edit playlists (name, description, etc)
 - Manage user account - change data, download data, remove data
 - Sort playlist by:
