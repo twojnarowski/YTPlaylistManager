@@ -7,7 +7,10 @@
 @using Google.Apis.YouTube.v3.Data;
 @inject IConfiguration configuration;
 
-<h3>MyPlaylist - @Id</h3>
+<h3>MyPlaylist - @(Id ?? "error")</h3>
+<RadzenTextBox @bind-Value="playlist.Snippet.Title"></RadzenTextBox>
+<RadzenButton Click=@(args => UpdatePlaylistTitle()) Text="Save"></RadzenButton>
+@status
 
 @foreach (var item in items)
 {
@@ -17,6 +20,15 @@
 @code {
     [Parameter]
     public string Id { get; set; }
+
+    private string _playlistName;
+
+    private string status = string.Empty;
+
+    Playlist playlist = new()
+        {
+            Snippet = new(),
+        };
 
     public List<string> items = new();
 
@@ -46,12 +58,53 @@
         var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet,contentDetails");
         playlistItemsListRequest.PlaylistId = Id;
         playlistItemsListRequest.MaxResults = 50;
-
         var playlistItemsListResponse = playlistItemsListRequest.Execute();
+
+        var playlistRequest = youtubeService.Playlists.List("snippet,contentDetails");
+        playlistRequest.Id = Id;
+        var playlistResponse = await playlistRequest.ExecuteAsync();
+        playlist = playlistResponse.Items.First();
 
         foreach (var playlistItem in playlistItemsListResponse.Items)
         {
             items.Add(playlistItem.Snippet.Title);
         }
+
+    }
+
+    private async Task UpdatePlaylistTitle()
+    {
+        var applicationName = "YT Playlist Manager";
+        var secrets = new ClientSecrets
+            {
+                ClientId = configuration["Authentication:Google:ClientId"],
+                ClientSecret = configuration["Authentication:Google:ClientSecret"],
+            };
+
+        UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            secrets,
+            new[] { YouTubeService.Scope.YoutubeReadonly },
+            "Tymonello",
+            CancellationToken.None,
+            new FileDataStore(applicationName)
+        );
+
+        var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = applicationName,
+            });
+
+        var result = await youtubeService.Playlists.Update(playlist, "snippet").ExecuteAsync();
+
+        if (result.Snippet.Title == playlist.Snippet.Title)
+        {
+            status = "Great success!";
+        }
+        else
+        {
+            status = "Wrong!";
+        }
+        StateHasChanged();
     }
 }
