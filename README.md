@@ -1,6 +1,8 @@
 # YT Playlist Manager
+
 The idea of this application is to allow users to have more options of controlling, managing, editing and sorting their YT playlist than what YT provides.
 Taking part in the [100commitow](https://100commitow.pl/) competition.
+<img src="https://github.com/twojnarowski/YTPlaylistManager/assets/13180578/cad76c6c-0ce1-4392-bbea-4ff0c29428a3" alt="image" width="300" height="auto">
 
 ## The roadmap
 - ~~Add login via Google/YT Account~~
