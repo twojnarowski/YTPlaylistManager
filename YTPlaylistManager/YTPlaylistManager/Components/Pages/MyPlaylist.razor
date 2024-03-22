@@ -6,11 +6,11 @@
 @using Google.Apis.Upload;
 @using Google.Apis.YouTube.v3.Data;
 @inject IConfiguration configuration;
-
+@rendermode RenderMode.InteractiveServer
 <h3>MyPlaylist - @(Id ?? "error")</h3>
 <RadzenTextBox @bind-Value="playlist.Snippet.Title"></RadzenTextBox>
-<RadzenButton Click=@(args => UpdatePlaylistTitle()) Text="Save"></RadzenButton>
-@status
+<button @onclick="@Test">test</button>
+<RadzenButton Click=@(args => UpdatePlaylistTitle()) Text="Save"></RadzenButton>@status
 
 @foreach (var item in items)
 {
@@ -72,6 +72,11 @@
 
     }
 
+    private void Test()
+    {
+        Console.WriteLine("test");
+    }
+
     private async Task UpdatePlaylistTitle()
     {
         var applicationName = "YT Playlist Manager";
@@ -83,7 +88,7 @@
 
         UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
             secrets,
-            new[] { YouTubeService.Scope.YoutubeReadonly },
+            new[] { YouTubeService.Scope.Youtube },
             "Tymonello",
             CancellationToken.None,
             new FileDataStore(applicationName)

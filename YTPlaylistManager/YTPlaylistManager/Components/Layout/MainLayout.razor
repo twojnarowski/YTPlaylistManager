@@ -7,12 +7,12 @@
 <RadzenLayout>
     <RadzenHeader class="rz-p-2">
         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                <RadzenStack Orientation=" Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0" Style="width: 50px; height: 50px;">
+            <RadzenStack Orientation=" Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0" Style="width: 50px; height: 50px;">
                 <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)" />
                 <RadzenImage Path="logo.png" Style="width: 3rem;" AlternateText="logo" />
 
                 <RadzenLabel Style="font-weight: bold; letter-spacing: 2px; padding: 10px;" Text="YTPlaylistManager" />
-                </RadzenStack>
+            </RadzenStack>
             <AuthorizeView>
                 <NotAuthorized>
                     <ExternalLoginPicker />
@@ -39,7 +39,7 @@
         </div>
     </RadzenBody>
     <RadzenFooter>
-        Footer
+        C by tymonello
     </RadzenFooter>
 </RadzenLayout>
 <div id="blazor-error-ui">

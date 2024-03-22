@@ -1,3 +1,4 @@
+using Google.Apis.YouTube.v3;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace YTPlaylistManager
                 {
                     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
                     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                    googleOptions.Scope.Add(YouTubeService.Scope.Youtube);
                 })
                 .AddIdentityCookies();
 
