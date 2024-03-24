@@ -1,4 +1,6 @@
+using Google.Apis.Auth.AspNetCore3;
 using Google.Apis.YouTube.v3;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,10 +29,12 @@ namespace YTPlaylistManager
 
             builder.Services.AddAuthentication(options =>
                 {
-                    options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                    options.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+                    options.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                .AddGoogle(googleOptions =>
+                .AddCookie()
+                .AddGoogleOpenIdConnect(googleOptions =>
                 {
                     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
                     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
@@ -69,6 +73,8 @@ namespace YTPlaylistManager
 
             app.UseStaticFiles();
             app.UseAntiforgery();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode()

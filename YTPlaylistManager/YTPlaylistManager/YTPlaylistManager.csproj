@@ -12,6 +12,7 @@
     <ProjectReference Include="..\YTPlaylistManager.Client\YTPlaylistManager.Client.csproj" />
     <PackageReference Include="Google.Apis" Version="1.67.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.67.0" />
+    <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.67.0" />
     <PackageReference Include="Google.Apis.Core" Version="1.67.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.67.0.3358" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.2" />
