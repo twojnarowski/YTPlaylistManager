@@ -11,5 +11,15 @@
 
 <AuthorizeView>
     Hello @context.User.Identity?.Name!
+    @context.User.Identity.AuthenticationType
+    @string.Join(",", context.User.Claims)
+    @foreach(var identity in context.User.Identities)
+    {
+        @identity.Actor
+        @identity.AuthenticationType
+        @identity.RoleClaimType
+        @identity.Label
+        @identity.Name
+    }
     Here you will be able to manage your platlists.
 </AuthorizeView>

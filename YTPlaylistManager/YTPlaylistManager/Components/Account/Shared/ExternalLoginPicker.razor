@@ -44,13 +44,13 @@
         <div>
             <AntiforgeryToken />
             <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
-                @foreach (var provider in externalLogins)
-                {
-                    <button class="google-signin-button" type="submit" name="provider" value="@provider.Name">
-                        <span class="google-icon"></span>
-                        <span class="button-text">Sign in with Google</span>
-                    </button>
-                }
+            @foreach (var provider in externalLogins)
+            {
+                <button class="google-signin-button" type="submit" name="provider" value="@provider.Name">
+                    <span class="google-icon"></span>
+                    <span class="button-text">Sign in with Google</span>
+                </button>
+            }
         </div>
     </form>
 }

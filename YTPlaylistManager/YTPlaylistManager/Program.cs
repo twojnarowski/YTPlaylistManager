@@ -1,6 +1,7 @@
 using Google.Apis.Auth.AspNetCore3;
 using Google.Apis.YouTube.v3;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,8 +40,8 @@ namespace YTPlaylistManager
                     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
                     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                     googleOptions.Scope.Add(YouTubeService.Scope.Youtube);
-                })
-                .AddIdentityCookies();
+                    googleOptions.SignOutScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+                });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -72,9 +73,9 @@ namespace YTPlaylistManager
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-            app.UseAntiforgery();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAntiforgery();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode()
