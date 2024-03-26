@@ -13,12 +13,12 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
 - ~~Show user's uploads~~
 - ~~Show playlists of a user~~
   - ~~Set up YT API access~~
-  - ~~Download a list of playlists~~ and display just the names with links
+  - ~~Download a list of playlists~~ ~~and display just the names with links~~
 - ~~Add nice component library with beautiful UI~~
   - ~~Change the UI to match YT color scheme~~
   - ~~Add nicer font~~
   - ~~Add AI generated cool logo~~
-- Edit playlists (name, description, etc)
+-~~Edit playlists (name~~, description, etc)
 - Manage user account - change data, download data, remove data
 - Sort playlist by:
   - default options  
