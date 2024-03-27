@@ -20,9 +20,11 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
   - ~~Add AI generated cool logo~~
 -~~Edit playlists (name~~, description, etc)
 - Manage user account - change data, download data, remove data
+  - Fix how Identity works now with Google OAuth
 - Sort playlist by:
-  - default options  
+  - default options (popularity, upload time, add time)
   - video length
+    - try different sorting algorithms, bubble sort first.
 - Add scheduled sorting
   - Add Hangfire to the application
   - Get a test server to run the application constantly
