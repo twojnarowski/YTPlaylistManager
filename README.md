@@ -36,3 +36,4 @@ Taking part in the [100commitow](https://100commitow.pl/) competition.
 - Get suggestions on what to watch next
 - Automatically add new videos from subsscribtions to watch-later
 - Warnings about lists being almost full
+- Refactoring
